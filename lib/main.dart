@@ -29,6 +29,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<int> cardIds = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
+  List<String> cardImages = [
+    '🍏',
+    '🍏',
+    '🍉',
+    '🍉',
+    '🍒',
+    '🍒',
+    '🥝',
+    '🥝',
+    '🍇',
+    '🍇',
+    '🍍',
+    '🍍',
+    '🫛',
+    '🫛',
+    '🥕',
+    '🥕'
+  ];
+
+  List<bool> flippedCard = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +81,21 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         itemCount: 16,
         itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.all(10),
-            child: Container(
-                alignment: Alignment.center,
-                color: Colors.blue,
-                child: const Text("Card")),
-          );
+          return GestureDetector(
+              onTap: () {
+                setState(() {
+                  flippedCard[index] = !flippedCard[index];
+                });
+              },
+              child: Card(
+                  margin: EdgeInsets.all(10),
+                  child: Container(
+                    alignment: Alignment.center,
+                    color: Colors.blue,
+                    child: flippedCard[index]
+                        ? Text(cardImages[index])
+                        : const Text("Card Front"),
+                  )));
         },
       ),
     );
